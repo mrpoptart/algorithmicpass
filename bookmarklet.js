@@ -19,6 +19,73 @@ javascript:(function () {
 		showPrompt(out)
 	}
 
+	var templates = {
+		"Best": [
+			"ULNSXXXXXXXXXXXXXXXL",
+			"XULNSXXXXXXXXXXXXXXL",
+			"XXULNSXXXXXXXXXXXXXL",
+			"XXXULNSXXXXXXXXXXXXL",
+			"XXXXULNSXXXXXXXXXXXL",
+			"XXXXXULNSXXXXXXXXXXL",
+			"XXXXXXULNSXXXXXXXXXL",
+			"XXXXXXXULNSXXXXXXXXL",
+			"XXXXXXXXULNSXXXXXXXL",
+			"XXXXXXXXXULNSXXXXXXL",
+			"XXXXXXXXXXULNSXXXXXL",
+			"XXXXXXXXXXXULNSXXXXL",
+			"XXXXXXXXXXXXULNSXXXL",
+			"XXXXXXXXXXXXXULNSXXL",
+			"XXXXXXXXXXXXXXULNSXL",
+			"XXXXXXXXXXXXXXXULNSL",
+			"XXXXXXXXXXXXXXXULNSL",
+		],
+		"Long": [
+			"ULNSXXXXXXXXXXXL",
+			"XULNSXXXXXXXXXXL",
+			"XXULNSXXXXXXXXXL",
+			"XXXULNSXXXXXXXXL",
+			"XXXXULNSXXXXXXXL",
+			"XXXXXULNSXXXXXXL",
+			"XXXXXXULNSXXXXXL",
+			"XXXXXXXULNSXXXXL",
+			"XXXXXXXXULNSXXXL",
+			"XXXXXXXXXULNSXXL",
+			"XXXXXXXXXXULNSXL",
+			"XXXXXXXXXXXULNSL",
+		],
+		"Medium": [
+			"ULNSXXXXL",
+			"XULNSXXXL",
+			"XXULNSXXL",
+			"XXXULNSXL",
+			"XXXXULNSL",
+		],
+		"Short": [
+			"UNSL",
+			"USNL",
+		],
+		"Simple": [
+			"ULNOOOOL",
+			"OULNOOOL",
+			"OOULNOOL",
+			"OOOULNOL",
+			"OOOOULNL",
+		],
+		"PIN": [
+			"NNNN"
+		]
+	};
+
+	var allPassChars = {
+		U: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		L: "abcdefghijklmnopqrstuvwxyz",
+		A: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ",
+		N: "0123456789",
+		S: "-:;()$&@.,!",
+		X: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-:;()$&@.,!",
+		O: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+	};
+
 	function showPrompt(obj) {
 		var d = document.createElement("div");
 		document.body.appendChild(d);
@@ -56,7 +123,7 @@ javascript:(function () {
 		for (var i in obj) {
 			var p = document.createElement("p");
 			c.appendChild(p);
-			p.innerHTML += i + ":<br><input onClick='this.select();' type='text' value='" + obj[i] + "'>";
+			p.innerHTML += i + ':<br><input style="min-width: 20em;" onClick="this.select();" type="text" value="' + obj[i] + '">';
 			p.style.top = "54px";
 			p.style.width = "100%";
 			p.style.textAlign = "center";
@@ -74,62 +141,6 @@ javascript:(function () {
 			}
 		}
 	}
-
-	var templates = {
-		max: [
-			"anoxxxxxxxxxxxxxxxxx",
-			"axxxxxxxxxxxxxxxxxno"
-		],
-		"long": [
-			"CvcvnoCvcvCvcv",
-			"CvcvCvcvnoCvcv",
-			"CvcvCvcvCvcvno",
-			"CvccnoCvcvCvcv",
-			"CvccCvcvnoCvcv",
-			"CvccCvcvCvcvno",
-			"CvcvnoCvccCvcv",
-			"CvcvCvccnoCvcv",
-			"CvcvCvccCvcvno",
-			"CvcvnoCvcvCvcc",
-			"CvcvCvcvnoCvcc",
-			"CvcvCvcvCvccno",
-			"CvccnoCvccCvcv",
-			"CvccCvccnoCvcv",
-			"CvccCvccCvcvno",
-			"CvcvnoCvccCvcc",
-			"CvcvCvccnoCvcc",
-			"CvcvCvccCvccno",
-			"CvccnoCvcvCvcc",
-			"CvccCvcvnoCvcc",
-			"CvccCvcvCvccno"
-		],
-		medium: [
-			"CvcnoCvc",
-			"CvcCvcno"
-		],
-		"short": [
-			"Cvcn"
-		],
-		basic: [
-			"aaanaaan",
-			"aannaaan",
-			"aaannaaa"
-		],
-		pin: [
-			"nnnn"
-		]
-	};
-	var allPassChars = {
-		V: "AEIOU",
-		C: "BCDFGHJKLMNPQRSTVWXYZ",
-		v: "aeiou",
-		c: "bcdfghjklmnpqrstvwxyz",
-		A: "AEIOUBCDFGHJKLMNPQRSTVWXYZ",
-		a: "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz",
-		n: "0123456789",
-		o: "@&%?,=[]_:-+*$#!'^~;()/.",
-		x: "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()"
-	};
 
 	function getDomain() {
 		var i, h, cookie = "algopass_get_top_level_domain=cookie", hostname = document.location.hostname.split(".");
