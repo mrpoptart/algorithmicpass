@@ -1,5 +1,6 @@
-javascript:(function () {
+javascript:algopw=(function () {
 	var salt = 'my secret password';
+	var focalEl = document.activeElement;
 
 	function algorithm() {
 		var seed = btoa(sha1(getDomain() + salt));
@@ -89,6 +90,7 @@ javascript:(function () {
 	function showPrompt(obj) {
 		var d = document.createElement("div");
 		document.body.appendChild(d);
+		d.id = "algoPwPrompt";
 		d.style.background = "rgba(255, 255, 255, 0.5)";
 		d.style.position = "fixed";
 		d.style.top = "0";
@@ -98,7 +100,7 @@ javascript:(function () {
 		d.style.zIndex = 1e6;
 		d.style.fontFamily = 'sans-serif';
 		d.addEventListener("click", function () {
-			document.body.removeChild(d)
+			closePrompt();
 		});
 		var c = document.createElement("div");
 		d.appendChild(c);
@@ -124,6 +126,9 @@ javascript:(function () {
 			var p = document.createElement("p");
 			c.appendChild(p);
 			p.innerHTML += i + ':<br><input style="min-width: 20em;" onClick="this.select();" type="text" value="' + obj[i] + '">';
+			if(focalEl && focalEl.tagName == 'INPUT') {
+				p.innerHTML += '&nbsp;<a href="javascript:void;" onclick="algopw.applyToFocus(this)">paste</a>';
+			}
 			p.style.top = "54px";
 			p.style.width = "100%";
 			p.style.textAlign = "center";
@@ -137,9 +142,14 @@ javascript:(function () {
 				isEscape = event.keyCode == 27
 			}
 			if (isEscape) {
-				document.body.removeChild(d)
+				closePrompt();
 			}
 		}
+	}
+
+	function closePrompt() {
+		var d = document.getElementById('algoPwPrompt');
+		document.body.removeChild(d);
 	}
 
 	function getDomain() {
@@ -152,6 +162,11 @@ javascript:(function () {
 				return h
 			}
 		}
+	}
+
+	function applyToFocus(el) {
+		algopw.focalEl.value = el.previousSibling.previousSibling.value;
+		closePrompt();
 	}
 
 	function sha1(string) {
@@ -249,5 +264,9 @@ javascript:(function () {
 		window.onload = algorithm;
 	} else {
 		algorithm();
+	}
+	return {
+		applyToFocus:applyToFocus,
+		focalEl: focalEl
 	}
 })();
