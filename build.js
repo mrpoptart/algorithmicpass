@@ -8,6 +8,7 @@ exec('./node_modules/uglifyjs/bin/uglifyjs bookmarklet.js', function(e, code){
 	code = code.replace(/'/g, '\\\'');
 	code = code.replace(/\s*$/g, '');
 	code = code.replace('my secret password', "'+target.value+'");
+	code = code.replace('javascript:', 'javascript:/*ALGORITHMIC PASSWORD GENERATOR*/');
 	code = template.replace('template', code);
 	fs.writeFileSync('index.html', code);
 });
