@@ -125,7 +125,7 @@ javascript:algopw=(function () {
 		for (var i in obj) {
 			var p = document.createElement("p");
 			c.appendChild(p);
-			p.innerHTML += i + ':<br><input style="min-width: 20em; border: 1px solid black; padding: 5px; font-family: serif; font-size: 16px; background-color: #fff; color: #000;" onClick="this.select();" type="text" value="' + obj[i] + '">';
+			p.innerHTML += i + ':<br><input style="max-width: 20em; width:calc(100% - 3em); border: 1px solid black; padding: 5px; font-family: monospace; font-size: 16px; background-color: #fff; color: #000;" onClick="this.select();" type="text" value="' + obj[i] + '">';
 			if(focalEl && focalEl.tagName == 'INPUT') {
 				p.innerHTML += '&nbsp;<a href="javascript:void;" onclick="algopw.applyToFocus(this)">paste</a>';
 			}
