@@ -1,0 +1,17 @@
+<script>
+	function updateBookmarklet(target){
+		const el = document.getElementById('bookmarkletLink');
+
+		el.href = 'template';
+	}
+	function updateLabel(target){
+		const el = document.getElementById('bookmarkletLink');
+
+		el.innerText = `${target.value} AlgoPW`;
+	}
+</script>
+<input style="width: 227px; height: 14px; padding: 13px; margin-bottom: 13px;" type="text" placeholder="Label" onkeyup="updateLabel(this)">
+<br>
+<input style="width: 227px; height: 14px; padding: 13px; margin-bottom: 13px;" type="text" placeholder="Master Password" onkeyup="updateBookmarklet(this)">
+<br>
+<a id="bookmarkletLink" href="javascript:alert('please enter a password')">AlgoPW</a> (or click it to test it here)

@@ -1,9 +1,0 @@
-<script>
-	function updateBookmarklet(target){
-		var el = document.getElementById('bookmarkletLink');
-
-		el.href = 'template';
-	}
-</script>
-<input style="width: 227px; height: 14px; padding: 13px; margin-bottom: 13px;" type="text" placeholder="Master Password" onkeyup="updateBookmarklet(this)">
-<a style="text-indent:-999em; background-image: url(http://www.algopw.com/uploads/2/1/9/1/21914920/2442779_orig.png); width: 514px; height: 79px; display: block; zoom: .5;" id="bookmarkletLink" href="javascript:alert('please enter a password')">AlgoPW</a> (or click it to test it here)
