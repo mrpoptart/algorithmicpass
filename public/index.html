@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+<head>
+    <title>AlgoPW - an Algorithmic Password Generator</title>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css"/>
+    <noscript>
+        <link rel="stylesheet" href="assets/css/noscript.css"/>
+    </noscript>
+    <script>
+        function updateBookmarklet(target) {
+            const el = document.getElementById('bookmarkletLink');
+
+            el.href='javascript:/*ALGORITHMIC PASSWORD GENERATOR*/(async function(){const allPassChars={U:"ABCDEFGHJKLMNPQRSTUVWXYZ",L:"abcdefghjkmnopqrstuvwxyz",N:"123456789",S:"!@#$%^&*",X:"abcdefghjkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789!@#$%^&*"};async function algoPw(salt){await algorithm(salt)}async function algorithm(salt){const templates=generateTemplates();const domain=getDomain();const seed=btoa(await sha1(domain+salt));const seedChar=seed.charCodeAt(0);const template=templates[seedChar%templates.length];let password="";for(let j=0;j<template.length;j++){let templateChar=template[j];let passChars=allPassChars[templateChar];let seedChar=seed[j+1].charCodeAt();password+=passChars[seedChar%passChars.length]}if(typeof document==="undefined"){console.log(password)}else if(document.activeElement&&document.activeElement.tagName==="INPUT"){document.activeElement.value=password}else{await navigator.clipboard.writeText(password);prompt(`Algo Password for ${domain}`,password)}}function getDomain(){if(typeof document==="undefined")return"google.com";let i,h,cookie="algopass_get_top_level_domain=cookie",hostname=document.location.hostname.split(".");for(i=hostname.length-1;i>=0;i--){h=hostname.slice(i).join(".");document.cookie=cookie+";domain=."+h+";";if(document.cookie.indexOf(cookie)>-1){document.cookie=cookie.split("=")[0]+"=;domain=."+h+";expires=Thu, 01 Jan 1970 00:00:01 GMT;";return h}}}async function sha1(str){const enc=new TextEncoder;const hash=await crypto.subtle.digest("SHA-1",enc.encode(str));return Array.from(new Uint8Array(hash)).map(v=>v.toString(16).padStart(2,"0")).join("")}function generateTemplates(){return Array(16).fill(0).map((o,i)=>{return"ULNS".padStart(i+4,"X").padEnd(19,"X")+"L"})}await algoPw("'+target.value+'")})();'
+        }
+
+        function updateLabel(target) {
+            const el = document.getElementById('bookmarkletLink');
+
+            el.innerText = `${target.value} AlgoPW`;
+        }
+    </script>
+</head>
+<body class="is-preload">
+
+<!-- Wrapper -->
+<div id="wrapper" class="fade-in">
+
+    <!-- Intro -->
+    <div id="intro">
+        <h1>This is AlgoPW</h1>
+        <p>A deterministic, algorithmic password generator</p>
+        <ul class="actions">
+            <li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+        </ul>
+    </div>
+
+    <!-- Header -->
+    <header id="header">
+        <a href="index.html" class="logo">AlgoPW</a>
+    </header>
+
+    <!-- Main -->
+    <div id="main">
+
+        <!-- Featured Post -->
+        <article class="post featured">
+            <header class="major">
+                <span class="date">Create a bookmarklet</span>
+                <h2>Jump right in</h2>
+                <input style="max-width: 400px" type="text" placeholder="Type a Label" onkeyup="updateLabel(this)">
+                <input style="max-width: 400px" type="text" placeholder="Type a Master Password" onkeyup="updateBookmarklet(this)">
+                <br/>
+                <p>Drag this link to the bookmark bar
+                    <br/><a style="color: white; background-color: blue; border: 1px solid blue; padding: 5px 20px; border-radius: 5px;"
+                            id="bookmarkletLink" href="javascript:alert('please enter a password')">AlgoPW</a><br/>
+                    (or click it to test it here)</p>
+            </header>
+        </article>
+        <article class="post">
+            <header class="major">
+                <h2>How does it work?</h2>
+                <h4>It's a <a href="https://en.wikipedia.org/wiki/Bookmarklet">bookmarklet</a></h4>
+                <p>A piece of javascript code that we run on the page you're currently viewing.</p>
+                <h4>Cookie -> Domain</h4>
+                <p>We use a pre-expired cookie to determine the domain</p>
+                <h4>Salt (Master Password) + Domain -> Hash</h4>
+                <p>The contents of your input field (the salt) are combined with the current domain and SHA1-hashed to
+                    produce a unique output.</p>
+                <h4>Hash -> Template</h4>
+                <p>The hash is compared to a series of potential templates, and then applied to those templates to
+                    produce a series of passwords.</p>
+                <h4>Display</h4>
+                <p>An overlay is produced on the current page displaying your password.</p>
+            </header>
+        </article>
+        <article class="post">
+            <header class="major">
+                <h2>Limitations</h2>
+                <h4>This system is not secure</h4>
+                <p>AlgoPW is convenient, consistent, and usable. It is not secure. By using the same system to produce
+                    passwords for every site, If someone found your system, they could easily hack every site you visit.<br/>However,
+                    anyone who steals a set of passwords from a site will likely be unable to determine your password,
+                    and your passwords at other sites will probably not be compromised.</p>
+                <h4>Bookmarklets are dangerous</h4>
+                <p>
+                    <a href="https://superuser.com/questions/540666/is-it-safe-to-use-an-untrusted-bookmarklet-on-a-web-page-with-sensitive-data">Running
+                        code you don't understand on the webpage is dangerous</a>. This is the same for browser
+                    extensions, buttons and links you don't know, etc.<br/><a
+                        href="https://github.com/mrpoptart/algorithmicpass">Click here to see my source code and decide
+                    if you can trust it.</a></p>
+                <h4>Subdomains all get the same password</h4>
+                <p>In some cases, this is convenient. Both mail.google.com and calendar.google.com produce the same
+                    password, which is correct and useful.<br/>In other cases, different subdomains are different sites.
+                    Both site1.weebly.com and site2.weebly.com will receive the same password, which is technically a
+                    security flaw.</p>
+                <h4>Aggressive sites won't work well</h4>
+                <p>Some sites like USAA.com require you to change your password regularly. This is inconvenient as if
+                    you change your master password you have to change all sites using AlgoPW.</p>
+            </header>
+
+        </article>
+
+
+        <!-- Copyright -->
+        <div id="copyright">
+            <ul>
+                <li>&copy; Morgan Engel</li>
+                <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+
+</body>
+</html>

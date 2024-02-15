@@ -1,10 +1,10 @@
 (async function () {
 	const allPassChars = {
-		U: "ABCDEFGHIJKLMNPQRSTUVWXYZ",
+		U: "ABCDEFGHJKLMNPQRSTUVWXYZ",
 		L: "abcdefghjkmnopqrstuvwxyz",
 		N: "123456789",
 		S: "!@#$%^&*",
-		X: "abcdefghjkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789!@#$%^&*"
+		X: "abcdefghjkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ123456789!@#$%^&*"
 	};
 
 	async function algoPw(salt) {
